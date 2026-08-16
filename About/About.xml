@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>modeod.RaidIntel</packageId>
+  <name>Raid Intel</name>
+  <author>modeod</author>
+  <modVersion>0.1.0</modVersion>
+  <description>Debug overlay for raider AI: shows Lord / LordToil / Duty / Job for each hostile pawn.</description>
+
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <!-- Жёсткая зависимость: без Harmony мод не запустится. -->
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+      <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+    </li>
+  </modDependencies>
+
+  <!-- Порядок загрузки: мы должны грузиться ПОСЛЕ игры и Harmony. -->
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+</ModMetaData>

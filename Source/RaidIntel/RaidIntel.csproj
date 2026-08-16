@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- RimWorld 1.6 = Unity 2022.3 + Mono + .NET Framework 4.7.2. Не netX.0, не netstandard. -->
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+
+    <AssemblyName>RaidIntel</AssemblyName>
+    <RootNamespace>RaidIntel</RootNamespace>
+
+    <!-- DLL падает сразу в структуру мода: <мод>/1.6/Assemblies/RaidIntel.dll -->
+    <OutputPath>..\..\1.6\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>portable</DebugType>
+
+    <!-- Чтобы в Assemblies не насыпало лишних DLL из NuGet. -->
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Reference assemblies самой игры: сигнатуры без тел методов.
+         Благодаря им проект собирается без установленной копии RimWorld. -->
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+
+    <!-- ExcludeAssets="runtime" ОБЯЗАТЕЛЕН: иначе 0Harmony.dll скопируется
+         в наш мод и подерётся с модом Harmony. -->
+    <PackageReference Include="Lib.Harmony" Version="2.4.*" ExcludeAssets="runtime" />
+
+    <!-- Даёт targeting pack для net472, если его нет в системе. -->
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

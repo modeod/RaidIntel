@@ -1,0 +1,14 @@
+# build output
+bin/
+obj/
+1.6/Assemblies/*.dll
+1.6/Assemblies/*.pdb
+
+# IDE
+.idea/
+.vs/
+*.user
+*.suo
+
+# RimWorld
+About/PublishedFileId.txt
