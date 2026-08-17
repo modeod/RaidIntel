@@ -40,7 +40,7 @@ namespace RaidIntel
 
             // Строка-идентификатор должна быть уникальной: по ней потом видно,
             // чей патч висит на методе (в т.ч. в отчёте HugsLib по Ctrl+F12).
-            var harmony = new Harmony("Nikita.RaidIntel");
+            var harmony = new Harmony("modeod.RaidIntel");
 
             // Находит в нашей сборке все классы с атрибутом [HarmonyPatch] и применяет их.
             harmony.PatchAll(Assembly.GetExecutingAssembly());
