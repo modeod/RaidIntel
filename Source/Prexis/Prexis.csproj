@@ -5,9 +5,6 @@
     <TargetFramework>net472</TargetFramework>
     <LangVersion>latest</LangVersion>
 
-    <AssemblyName>RaidIntel</AssemblyName>
-    <RootNamespace>RaidIntel</RootNamespace>
-
     <!-- DLL падает сразу в структуру мода: <мод>/1.6/Assemblies/RaidIntel.dll -->
     <OutputPath>..\..\1.6\Assemblies\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -16,6 +13,7 @@
     <!-- Чтобы в Assemblies не насыпало лишних DLL из NuGet. -->
     <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <PackageId>Prexis</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

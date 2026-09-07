@@ -3,16 +3,17 @@ using HarmonyLib;
 using UnityEngine;
 using Verse;
 
-namespace RaidIntel
+namespace Prexis
 {
     /// <summary>
     /// Настройки мода. Аналог твоего appsettings + IOptions, только сериализуется
     /// самой игрой в файл конфига через систему Scribe.
     /// </summary>
-    public class RaidIntelSettings : ModSettings
+    public class PrexisSettings : ModSettings
     {
         public bool logRaids = true;
-
+        public bool showOverlay = true;
+        
         /// <summary>
         /// Scribe — это и запись, и чтение одновременно (одна функция на оба направления).
         /// Режим определяется глобальным состоянием Scribe.mode. Непривычно после
@@ -21,6 +22,7 @@ namespace RaidIntel
         public override void ExposeData()
         {
             Scribe_Values.Look(ref logRaids, "logRaids", true);
+            Scribe_Values.Look(ref showOverlay, "showOverlay", true);
             base.ExposeData();
         }
     }
@@ -30,25 +32,25 @@ namespace RaidIntel
     /// и создаёт его — это шаг 3 из 14 в порядке старта, ДО загрузки любого XML.
     /// Значит: Harmony тут ставить можно, а лезть в DefDatabase — ещё нельзя.
     /// </summary>
-    public class RaidIntelMod : Mod
+    public class PrexisMod : Mod
     {
-        public static RaidIntelSettings Settings;
+        public static PrexisSettings Settings;
 
-        public RaidIntelMod(ModContentPack content) : base(content)
+        public PrexisMod(ModContentPack content) : base(content)
         {
-            Settings = GetSettings<RaidIntelSettings>();
+            Settings = GetSettings<PrexisSettings>();
 
             // Строка-идентификатор должна быть уникальной: по ней потом видно,
             // чей патч висит на методе (в т.ч. в отчёте HugsLib по Ctrl+F12).
-            var harmony = new Harmony("modeod.RaidIntel");
+            var harmony = new Harmony("modeod.Prexis");
 
             // Находит в нашей сборке все классы с атрибутом [HarmonyPatch] и применяет их.
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            Log.Message("[RaidIntel] Mod ctor done, Harmony patches applied.");
+            Log.Message("[Prexis] Mod ctor done, Harmony patches applied.");
         }
 
-        public override string SettingsCategory() => "Raid Intel";
+        public override string SettingsCategory() => "Prexis";
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -57,6 +59,7 @@ namespace RaidIntel
             var list = new Listing_Standard();
             list.Begin(inRect);
             list.CheckboxLabeled("Log raid events to dev console", ref Settings.logRaids);
+            list.CheckboxLabeled("Log raid show overlay", ref Settings.showOverlay);
             list.End();
             base.DoSettingsWindowContents(inRect);
         }
@@ -73,7 +76,7 @@ namespace RaidIntel
         [HarmonyPostfix]
         public static void Postfix()
         {
-            Log.Message("[RaidIntel] Game.FinalizeInit finished - map is live.");
+            Log.Message("[Prexis] Game.FinalizeInit finished - map is live.");
         }
     }
 }

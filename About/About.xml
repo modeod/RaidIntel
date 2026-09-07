@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <packageId>modeod.RaidIntel</packageId>
-  <name>Raid Intel</name>
+  <packageId>modeod.Prexis</packageId>
+  <name>PREXIS - Tactical Raider AI</name>
   <author>modeod</author>
   <modVersion>0.1.0</modVersion>
-  <description>Debug overlay for raider AI: shows Lord / LordToil / Duty / Job for each hostile pawn.</description>
+  <description>aboba</description>
 
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
 
-  <!-- Жёсткая зависимость: без Harmony мод не запустится. -->
   <modDependencies>
     <li>
       <packageId>brrainz.harmony</packageId>
@@ -20,7 +19,6 @@
     </li>
   </modDependencies>
 
-  <!-- Порядок загрузки: мы должны грузиться ПОСЛЕ игры и Harmony. -->
   <loadAfter>
     <li>Ludeon.RimWorld</li>
     <li>brrainz.harmony</li>
