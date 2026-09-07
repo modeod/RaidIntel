@@ -10,9 +10,10 @@ model: sonnet
 
 ## Где искать
 
-- Декомпилированные исходники игры 1.6 — в каталоге, который назовёт задача
-  (обычно клон `RimWorldDecompiled`).
-- Ванильные Defs — `Data/Core/Defs/`, обычный XML.
+- Декомпилированные исходники игры 1.6 — `C:/Users/modeod/source/repos/RimWorldDecompiled`.
+  Только чтение, ничего там не менять.
+  Если не нашел там, то тогда в каталоге, который назовёт задача (обычно клон `RimWorldDecompiled`).
+- Ванильные Defs — `D:/Games/Steam/steamapps/common/RimWorld/Data/Core/Defs/`, обычный XML.
 - Исходники модов — там, где указано в задаче.
 
 ## Как искать

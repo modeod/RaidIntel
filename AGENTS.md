@@ -1,16 +1,19 @@
-# RaidIntel — мод на ИИ рейдеров для RimWorld 1.6
+# PREXIS — мод на ИИ рейдеров для RimWorld 1.6
 
-C# + XML Defs. Цель — групповой тактический ИИ.
+Общий файл инструкций для всех агентов (Claude Code читает его через `@AGENTS.md`
+из `CLAUDE.md`; Codex читает напрямую).
+
+C# + XML Defs. Отладочный оверлей Raid Intel (подсистема диагностики) работает; цель — групповой тактический ИИ.
 Разработчик — бывший C#-бекендер (веб), в Unity и геймдеве новичок.
 Незнакомые игровые сущности объясняй, не считай известными.
 
 ## Сборка
 
 ```
-dotnet build Source/RaidIntel/RaidIntel.csproj
+dotnet build Source/Prexis/Prexis.csproj
 ```
 
-DLL уезжает в `1.6/Assemblies/RaidIntel.dll`.
+DLL уезжает в `1.6/Assemblies/Prexis.dll`.
 
 **IMPORTANT: exit code сборки — единственная автоматическая проверка в проекте.**
 Запустить игру и увидеть поведение может только человек. Собирай перед тем, как сказать
@@ -23,7 +26,7 @@ DLL уезжает в `1.6/Assemblies/RaidIntel.dll`.
 по строке находит быстрее, чем обход по ссылкам.
 
 Ванильные Defs: `D:\Games\Steam\steamapps\common\RimWorld\Data\Core\Defs\` — обычный XML.
-Декомпилированные исходники 1.6: `github.com/Chillu1/RimWorldDecompiled`.
+Декомпилированные исходники 1.6 — локальный клон, путь ниже в разделе «Идентификаторы».
 
 ## Факты о платформе, которые нельзя вывести из кода
 
@@ -59,6 +62,50 @@ DLL уезжает в `1.6/Assemblies/RaidIntel.dll`.
 8. **Своих потоков не заводить.** Есть `Gilzoide.ManagedJobs.ManagedJobParallelFor`
    внутри `Assembly-CSharp`.
 
+## Идентификаторы и раскладка репозитория
+
+| Что | Значение |
+|---|---|
+| `packageId` | `modeod.Prexis` |
+| id инстанса Harmony | `modeod.Prexis` |
+| namespace | `Prexis` |
+| префикс лога | `[Prexis]` |
+
+```
+About/About.xml        манифест мода
+1.6/Assemblies/        выход сборки (в .gitignore)
+1.6/Defs/              свои Def'ы
+1.6/Patches/           PatchOperation'ы к чужим Def'ам
+Source/Prexis/         C#
+docs/                  документация
+```
+
+⚠️ `1.6` — это папка версии игры, а не «версия мода». Новый Def кладётся в `1.6/Defs/`,
+правка чужого Def — в `1.6/Patches/`.
+
+**Куда не ходить при поиске:** `obj/`, `bin/`, `.vs/`, `.idea/`, `1.6/Assemblies/`.
+Там сгенерированное и бинарники; grep по ним — потраченное время и контекст.
+
+**Вихідники игры для чтения:** `C:/Users/modeod/source/repos/RimWorldDecompiled`
+(клон Chillu1/RimWorldDecompiled). Это справочник, не часть проекта — не редактировать.
+
+## Проверка, что мод жив
+
+После сборки и запуска игры в dev-консоли должна появиться строка:
+
+```
+[Prexis] Mod ctor done, Harmony patches applied.
+```
+
+Её нет — мод не загрузился (чаще всего: не собран DLL, или мод выключен в списке модов).
+⚠️ Запустить игру и увидеть это может **только человек**.
+
+## Работа с git
+
+- Ветка на задачу, с префиксом агента: `claude/2026-09-07-spike-pathgrid`, `codex/...`.
+- В `main` мержит разработчик, не агент.
+- Коммит перед тем, как отдать работу другому агенту, и `HANDOFF.md` в том же коммите.
+
 ## Маркировка достоверности — обязательна
 
 **IMPORTANT: немаркированное утверждение читается как проверенное. Это главная ловушка проекта.**
@@ -84,8 +131,14 @@ DLL уезжает в `1.6/Assemblies/RaidIntel.dll`.
 | Файл | Когда открывать |
 |---|---|
 | `docs/00_INDEX.md` | оглавление и статус проекта |
+| `docs/02_Glossary_For_Backenders.md` | встретил незнакомый термин RimWorld |
+| `docs/03_Architecture_Map.md` | надо понять, что вообще есть в движке и куда вставиться |
+| `docs/04_AI_DeepDive.md` | работаешь с Job / ThinkTree / Duty / Lord |
+| `docs/05_ThreatMap_Engineering.md` | карта угрозы, многопоточность, производительность |
+| `docs/06_Market_And_Player_Voice.md` | продуктовые решения, что делают конкуренты |
 | `docs/07_Product_Vision.md` | зачем мод существует, три оси, корнер-кейсы |
 | `docs/08_Roadmap.md` | архитектурные решения, точки крепления, этапы |
 | `docs/09_Assumption_Register.md` | на чём стоят решения и что рухнет |
 | `docs/10_TacticalShooting_Extraction.md` | отрядные механики уровня 2 |
+| `docs/11_Harmony_Patches_Visual.md` | выбираешь тип Harmony-патча |
 | `HANDOFF.md` | что делал предыдущий агент и на чём остановился |
